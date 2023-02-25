@@ -110,8 +110,6 @@ class DoctorController extends Controller
             }
             $photoName=uniqid().'.'. $photo->getClientOriginalExtension();
             Image::make($photo)->save(public_path('storage/doctor/' .$photoName));
-        }else{
-            $photoName=$doctor->photo;
         }
         $doctor->name=$request->name;
         $doctor->email=$request->email;
@@ -134,4 +132,6 @@ class DoctorController extends Controller
         $doctor->delete();
         return back()->with('success','Doctor Info Deleted');
     }
+
+    
 }

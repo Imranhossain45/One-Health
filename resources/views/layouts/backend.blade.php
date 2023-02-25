@@ -63,12 +63,15 @@
         <div class="sb-sidenav-menu">
           <div class="nav">
             <div class="sb-sidenav-menu-heading">Core</div>
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ route('home') }}">
               <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
               Dashboard
             </a>
             <div class="sb-sidenav-menu-heading">Interface</div>
-            {{-- layouts start --}}
+            @if(Auth::user()->user_type==1)
+
+            
+            {{-- Doctor start --}}
             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseDoctor"
               aria-expanded="false" aria-controls="collapseDoctor">
               <div class="sb-nav-link-icon"><i class="fa-solid fa-person"></i></div>
@@ -79,10 +82,39 @@
               <nav class="sb-sidenav-menu-nested nav">
                 <a class="nav-link" href="{{ route('backend.doctor.create') }}">Add Doctor</a>
                 <a class="nav-link" href="{{ route('backend.doctor.index') }}">All Doctors</a>
-                <a class="nav-link" href="layout-sidenav-light.html">Edit Doctors</a>
               </nav>
             </div>
-            {{-- layouts end --}}
+            {{-- Doctor end --}}
+            @endif
+
+            {{-- Blog start --}}
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBlog"
+              aria-expanded="false" aria-controls="collapseBlog">
+              <div class="sb-nav-link-icon"><i class="fa-brands fa-blogger-b"></i></i></div>
+              Blog
+              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="collapseBlog" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+              <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" href="{{route('backend.blog.create')}}">Add Blog</a>
+                <a class="nav-link" href="{{route('backend.blog.index')}}">All Blogs</a>
+              </nav>
+            </div>
+            {{-- Blog end --}}
+            {{-- Appointment start --}}
+            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAppointment"
+              aria-expanded="false" aria-controls="collapseAppointment">
+              <div class="sb-nav-link-icon"><i class="fa-solid fa-calendar-check"></i></i></div>
+              Appointment
+              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="collapseAppointment" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+              <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" href="{{Auth::user()->user_type==1 ? route('appointment.index') : route('appointment.myappointment') }}">All Appointment</a>
+              </nav>
+            </div>
+            {{-- Appointment end --}}
+            
             <div class="sb-sidenav-footer">
               <div class="small">Logged in as:</div>
               {{ Auth::user()->name }}

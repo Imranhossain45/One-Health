@@ -14,4 +14,8 @@ class Doctor extends Model
      * @var array<int, string>
      */
     protected $guarded = ['id'];
+
+    public function appoinment(){
+        return $this->hasMany(Appointment::class);
+    }
 }

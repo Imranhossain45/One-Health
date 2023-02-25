@@ -6,10 +6,10 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ route('backend.doctor.index') }}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Category</li>
+            <li class="breadcrumb-item active" aria-current="page">All Doctors</li>
           </ol>
         </nav>
-        <h1 class="m-0">Products</h1>
+        <h1 class="m-0">All Doctors</h1>
       </div>
     </div>
   </div>

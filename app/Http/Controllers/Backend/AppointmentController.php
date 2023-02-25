@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -15,7 +16,8 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $appointments = Appointment::all();
+        return view('backend.appoinment.index', compact('appointments'));
     }
 
     /**
@@ -25,7 +27,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('frontend.appointment');
     }
 
     /**
@@ -36,7 +38,28 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'email'=>'nullable',
+            'phone'=>'required|numeric',
+            'doctor'=>'required',
+            'date'=>'required',
+            'message'=>'nullable|max:500',
+            'user_id'=>'nullable',
+            'status'=>'processing',
+
+        ]);
+        Appointment::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'doctor'=>$request->doctor,
+            'date'=>$request->date,
+            'message'=>$request->message,
+            'user_id'=>Auth::user()->id,
+            'status'=> 'processing',
+        ]);
+        return back()->with('success','Appoinment Created!');
     }
 
     /**
@@ -57,8 +80,9 @@ class AppointmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Appointment $appointment)
-    {
-        //
+    {   
+        
+        return view('backend.appoinment.edit',compact('appointment'));
     }
 
     /**
@@ -70,7 +94,27 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'nullable',
+            'phone' => 'required|numeric',
+            'doctor' => 'required',
+            'date' => 'required',
+            'message' => 'nullable|max:500',
+            'user_id' => 'nullable',
+            'status' => 'processing',
+
+        ]);
+        $appointment->name=$request->name;
+        $appointment->email=$request->email;
+        $appointment->phone=$request->phone;
+        $appointment->doctor=$request->doctor;
+        $appointment->message=$request->message;
+        $appointment->user_id=$request->user_id;
+        $appointment->status='processing';
+
+        $appointment->save();
+        return redirect(route('appointment.index'))->with('success','Appoinment Edited!');
     }
 
     /**
@@ -81,6 +125,43 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
-        //
+        /* $appointment=Appointment::find($appointment);
+        $appointment->status='Canceled';
+        $appointment->save();
+        return back()->with('success','Appoinment Deleted'); */
+    }
+
+
+    public function myappointment()
+    {
+        if (Auth::id()) {
+            $userid = Auth::user()->id;
+            $appoints = Appointment::where('user_id', $userid)->get();
+            return view('backend.appoinment.myappointment', compact('appoints'));
+        } else {
+            return back();
+        }
+    }
+
+    public function cancel_appointment($id)
+    {
+        $appoint = Appointment::find($id);
+        $appoint->status = 'Canceled';
+        $appoint->save();
+        return back()->with('success', 'Appoinment Canceled!');
+    }
+    public function delete_appointment($id)
+    {
+        $appoint = Appointment::find($id);
+        $appoint->delete();
+        return back()->with('success', 'Appoinment Deleted!');
+    }
+
+    public function approve_appointment($id){
+        $appoint = Appointment::find($id);
+        $appoint->status='Approved';
+        $appoint->save();
+
+        return back()->with('success','Appoinment Approved!');
     }
 }

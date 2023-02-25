@@ -11,7 +11,7 @@
 
 @if (session('error'))
     
-    <div class="alert alert-danger alert-dismissible">
+    <div class="alert alert-danger alert-dismissible ml-5">
         {{-- <button type="button" class="close" data-dismiss="alert">&times;</button> --}}
         <strong>Error!</strong>{{session('error')}}
     </div>
@@ -20,7 +20,7 @@
 
 @if (session('success'))
     
-    <div class="alert alert-success alert-dismissible">
+    <div class="alert alert-success alert-dismissible" style="margin-left: 400px;">
         {{-- <button type="button" class="close" data-dismiss="alert">&times;</button> --}}
         <strong>Success!</strong>{{session('success')}}
     </div>

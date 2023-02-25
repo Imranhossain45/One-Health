@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Appointment extends Model
+class Blog extends Model
 {
     use HasFactory;
     /**
@@ -14,8 +14,4 @@ class Appointment extends Model
      * @var array<int, string>
      */
     protected $guarded = ['id'];
-
-    public function doctor(){
-        return $this->hasMany(Doctor::class);
-    }
 }
