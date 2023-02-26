@@ -16,9 +16,11 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::all();
-        return view('backend.doctor.index', compact('doctors'));
-        return view('frontend.index',compact('doctors'));
+        
+        $activeDoctors=Doctor::where('status','publish')->get();
+        $draftDoctors=Doctor::where('status','draft')->get();
+        $trashDoctors= Doctor::onlyTrashed()->orderBy('id', 'desc')->get();
+        return view('backend.doctor.index', compact('activeDoctors', 'draftDoctors', 'trashDoctors'));
     }
 
     /**
@@ -129,9 +131,31 @@ class DoctorController extends Controller
      */
     public function destroy(Doctor $doctor)
     {
+        $doctor->status == 'draft';
+        $doctor->save();
         $doctor->delete();
-        return back()->with('success','Doctor Info Deleted');
+        return back()->with('success','Doctor Info Trashed');
     }
 
-    
+    public function status(Doctor $doctor){
+        if($doctor->status=='publish'){
+            $doctor->status='draft';
+            $doctor->save();
+        }else{
+            $doctor->status = 'publish';
+            $doctor->save();
+        }
+        return back()->with('success', $doctor->status == 'publish' ? 'Doctor info Published' : 'Doctor info Drafted');
+    }
+    public function reStore($id){
+        $doctor= Doctor::onlyTrashed()->find($id);
+        $doctor->restore();
+        return back()->with('success', 'Doctor Restored!');
+
+    }
+    public function delete($id){
+        $doctor=Doctor::onlyTrashed()->find($id);
+        $doctor->forceDelete();
+        return back()->with('success','Doctor Data Deleted!');
+    }
 }

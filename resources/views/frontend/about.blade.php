@@ -43,7 +43,7 @@
           <h1 class=" text-center">Out Doctors</h1>
           <div class="row">
 
-            @foreach ($doctors as $doctor)
+            @foreach ($activeDoctors as $doctor)
               <div class="col-md-6 col-lg-4 py-3 wow zoomIn">
                 <div class="card-doctor">
                   <div class="header">

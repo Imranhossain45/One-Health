@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('phone');
             $table->integer('doctor_id');
             $table->string('photo');
+            $table->string('status')->default('publish');
             $table->softDeletes();
             $table->timestamps();
         });

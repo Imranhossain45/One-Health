@@ -9,7 +9,7 @@
 
   <meta name="copyright" content="MACode ID, https://macodeid.com/">
 
-  <title>One Health - Medical Center HTML5 Template</title>
+  <title>One Health - Medical Center</title>
 
   <link rel="stylesheet" href="../assets/css/maicons.css">
 
@@ -73,15 +73,15 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
               <a class="nav-link" href="{{ url('/') }}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('about') }}">About Us</a>
-            </li>
+            </li>            
             <li class="nav-item">
               <a class="nav-link" href="{{ route('doctor') }}">Doctors</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ route('blog') }}">Blogs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('about') }}">About Us</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ route('contact') }}">Contact</a>

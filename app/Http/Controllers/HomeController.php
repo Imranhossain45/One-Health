@@ -30,10 +30,10 @@ class HomeController extends Controller
 
 
     public function index()
-    {       
-        $doctors=Doctor::all();
-        $blogs = Blog::OrderBy('id','desc')->limit(3)->get();
-        return view('frontend.index',compact('doctors','blogs'));
+    {
+        $activeDoctors = Doctor::where('status', 'publish')->get();
+        $activeBlogs = Blog::OrderBy('id','desc')->limit(3)->get();
+        return view('frontend.index',compact('activeDoctors', 'activeBlogs'));
     }
        
     public function home()
@@ -43,12 +43,12 @@ class HomeController extends Controller
 
     public function doctor()
     {
-        $doctors = Doctor::all();
-        return view('frontend.allDoctors', compact('doctors'));
+        $activeDoctors = Doctor::where('status', 'publish')->get();
+        return view('frontend.allDoctors', compact('activeDoctors'));
     }
     public function about(){
-        $doctors = Doctor::all();
-        return view('frontend.about', compact('doctors'));
+        $activeDoctors = Doctor::where('status', 'publish')->get();
+        return view('frontend.about', compact('activeDoctors'));
 
     }
 
@@ -72,8 +72,8 @@ class HomeController extends Controller
     }
 
     public function blogs(){
-        $blogs=Blog::all();
-        return view('frontend.blog',compact('blogs'));
+        $activeBlogs=Blog::where('status', 'published')->get();
+        return view('frontend.blog',compact('activeBlogs'));
         
 
     }

@@ -4,7 +4,7 @@
 
       <div class="owl-carousel wow fadeInUp" id="doctorSlideshow">
 
-        @foreach ($doctors as $doctor)         
+        @foreach ($activeDoctors as $doctor)         
        
         <div class="item">
           <div class="card-doctor">

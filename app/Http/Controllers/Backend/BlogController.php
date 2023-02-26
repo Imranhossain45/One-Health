@@ -16,8 +16,10 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::all();
-        return view('backend.blog.index', compact('blogs'));
+        $activeBlogs = Blog::where('status', 'published')->get();
+        $draftBlogs = Blog::where('status', 'draft')->get();
+        $trashBlogs = Blog::onlyTrashed()->orderBy('id', 'desc')->get();
+        return view('backend.blog.index', compact('activeBlogs', 'draftBlogs', 'trashBlogs'));
     }
 
     /**
@@ -126,7 +128,7 @@ class BlogController extends Controller
 
             $aPhotoName = uniqid() . '.' . $aPhoto->getClientOriginalExtension();
             Image::make($aPhoto)->save(public_path('storage/blog/aPhoto/' . $aPhotoName));
-        } 
+        }
 
 
         $blog->title = $request->title;
@@ -148,10 +150,31 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        
+        $blog->status == 'draft';
+        $blog->save();
         $blog->delete();
-
+        return back()->with('success', 'Blog info Trashed');
+    }
+    public function status(Blog $blog)
+    {
+        if ($blog->status == 'published') {
+            $blog->status = 'draft';
+            $blog->save();
+        } else {
+            $blog->status = 'published';
+            $blog->save();
+        }
+        return back()->with('success', $blog->status == 'published' ? 'Blog Published' : 'Blog Drafted');
+    }
+    public function reStore($id)
+    {
+        $blog = Blog::onlyTrashed()->find($id);
+        $blog->restore();
+        return back()->with('success', 'Blog Restored!');
+    }
+    public function delete($id){
+        $blog = Blog::onlyTrashed()->find($id);
+        $blog->forceDelete();
         return back()->with('success', 'Blog Deleted');
     }
-
 }

@@ -17,7 +17,7 @@
         <div class="col-12 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
           <select name="doctor" class="custom-select">
             <option disabled selected>Select Doctor</option>
-            @foreach ($doctors as $doctor)
+            @foreach ($activeDoctors as $doctor)
               <option value="{{ $doctor->name }}">{{ $doctor->name }} ({{ $doctor->designation }})</option>
             @endforeach
           </select>

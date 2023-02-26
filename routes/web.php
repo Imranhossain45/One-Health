@@ -68,7 +68,10 @@ Route::middleware(['auth'])->group(function () {
           Route::post('doctor/store', 'store')->name('store');
           Route::get('doctor/edit/{doctor}', 'edit')->name('edit');
           Route::post('doctor/update/{doctor}', 'update')->name('update');
-          Route::delete('doctor/destroy/{doctor}', 'destroy')->name('delete');
+          Route::get('doctor/destroy/{doctor}', 'destroy')->name('trash');
+          Route::get('doctor/status/{doctor}', 'status')->name('status');
+          Route::get('doctor/reStore/{id}', 'reStore')->name('reStore');
+          Route::get('doctor/delete/{id}', 'delete')->name('delete');
         }
       );
     }
@@ -82,7 +85,10 @@ Route::middleware(['auth'])->group(function () {
           Route::post('blog/store', 'store')->name('store');
           Route::get('blog/edit/{blog}', 'edit')->name('edit');
           Route::post('blog/update/{blog}', 'update')->name('update');
-          Route::get('blog/destroy/{blog}', 'destroy')->name('delete');
+          Route::get('blog/destroy/{blog}', 'destroy')->name('trash');
+          Route::get('blog/status/{blog}', 'status')->name('status');
+          Route::get('blog/reStore/{id}', 'reStore')->name('reStore');
+          Route::get('blog/delete/{id}', 'delete')->name('delete');
         }
       );
     }

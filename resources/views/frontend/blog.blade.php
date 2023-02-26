@@ -18,7 +18,7 @@
     <div class="container">
       <div class="col-lg-12">
         <div class="row">
-          @foreach ($blogs as $blog)
+          @foreach ($activeBlogs as $blog)
             <div class="col-lg-6">
               <div class="card-blog">
                 <div class="header">

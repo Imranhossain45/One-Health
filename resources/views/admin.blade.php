@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <p>Lorem ipsum dolor sit amet.</p>
+        <h2>Welcome to the Paradise {{ Auth::user()->name }}</h2>
     </div>
 </div>
 @endsection

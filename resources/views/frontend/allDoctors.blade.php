@@ -24,7 +24,7 @@
 
           <div class="row">
 
-            @foreach ($doctors as $doctor)
+            @foreach ($activeDoctors as $doctor)
               <div class="col-md-6 col-lg-4 py-3 wow zoomIn">
                 <div class="card-doctor">
                   <div class="header">
@@ -35,7 +35,7 @@
                     </div>
                   </div>
                   <div class="body">
-                    <p class="text-xl mb-0">{{ $doctor->name }}</p>
+                    <a href="" class="text-xl mb-0">{{ $doctor->name }}</a>
                     <span class="text-sm text-grey">{{ $doctor->designation }}</span>
                   </div>
                 </div>
