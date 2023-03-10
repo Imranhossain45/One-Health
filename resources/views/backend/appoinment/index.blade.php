@@ -9,7 +9,7 @@
             <li class="breadcrumb-item active" aria-current="page">Appointment</li>
           </ol>
         </nav>
-        <h1 class="m-0">Appointment</h1>
+        <h1 class="m-0">Appointments</h1>
       </div>
     </div>
   </div>
